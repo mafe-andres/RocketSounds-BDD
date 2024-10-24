@@ -1,0 +1,56 @@
+{
+    "podcast_series": [
+      {
+        "title": "The Daily",
+        "host": "Michael Barbaro",
+        "publisher": "The New York Times",
+        "episodes": [
+          {
+            "title": "1500",
+            "host": "Michael Barbaro",
+            "release_date": "2024-08-20",
+            "duration": "25:30",
+            "episode_number": 1500,
+            "description": "This episode explores the latest political developments and their implications for the upcoming election.",
+            "guests": ["Jane Doe", "John Smith"],
+            "file": "The Daily - 1500.mp3"
+          }
+        ]
+      },
+      {
+        "title": "Stuff You Should Know",
+        "hosts": ["Josh Clark", "Chuck Bryant"],
+        "publisher": "iHeartRadio",
+        "episodes": [
+          {
+            "title": "2003",
+            "host": "Michael Barbaro",
+            "release_date": "2024-08-19",
+            "duration": "50:15",
+            "episode_number": 2003,
+            "description": "An in-depth discussion about the history and mechanics of air conditioning.",
+            "guests": [],
+            "file": "Stuff You Should Know - 2003.mp3"
+          }
+        ]
+      },
+      {
+        "title": "Serial",
+        "host": "Sarah Koenig",
+        "publisher": "Serial Productions",
+        "episodes": [
+          {
+            "title": "36",
+            "host": "Michael Barbaro",
+            "release_date": "2024-08-18",
+            "duration": "45:00",
+            "episode_number": 36,
+            "description": "A detailed investigation into the mysterious disappearance of a college student in 1999.",
+            "guests": ["Detective Mike Brown"],
+            "file": "Serial - 36.mp3"
+          }
+        ]
+      }
+    ]
+  }
+  

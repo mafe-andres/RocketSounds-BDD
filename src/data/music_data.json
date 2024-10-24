@@ -1,0 +1,58 @@
+{
+  "albums": [
+    {
+      "title": "A Night at the Opera",
+      "artist": "Queen",
+      "release_year": 1975,
+      "label": "EMI",
+      "tracks": [
+        {
+          "title": "Bohemian Rhapsody",
+          "artist": "Queen",
+          "duration": "5:55",
+          "track_number": 11,
+          "writers": ["Freddie Mercury"],
+          "producers": ["Roy Thomas Baker", "Queen"],
+          "lyrics": "Is this the real life? Is this just fantasy? Caught in a landslide, no escape from reality...",
+          "file": "Bohemian Rhapsody.mp3"
+        }
+      ]
+    },
+    {
+      "title": "Imagine",
+      "artist": "John Lennon",
+      "release_year": 1971,
+      "label": "Apple",
+      "tracks": [
+        {
+          "title": "Imagine",
+          "artist": "John Lennon",
+          "duration": "3:03",
+          "track_number": 1,
+          "writers": ["John Lennon"],
+          "producers": ["John Lennon", "Yoko Ono", "Phil Spector"],
+          "lyrics": "Imagine there's no heaven, It's easy if you try, No hell below us, Above us only sky...",
+          "file": "Imagine.mp3"
+        }
+      ]
+    },
+    {
+      "title": "Hotel California",
+      "artist": "Eagles",
+      "release_year": 1976,
+      "label": "Asylum",
+      "tracks": [
+        {
+          "title": "Hotel California",
+          "artist": "Eagles",
+          "duration": "6:30",
+          "track_number": 1,
+          "writers": ["Don Felder", "Don Henley", "Glenn Frey"],
+          "producers": ["Bill Szymczyk"],
+          "lyrics": "On a dark desert highway, cool wind in my hair, Warm smell of colitas, rising up through the air...",
+          "file": "Hotel California.mp3"
+        }
+      ]
+    }
+  ]
+}

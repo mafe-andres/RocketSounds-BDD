@@ -4,13 +4,12 @@ import random
 from data import Data
 from player import Player
 
-def search_media(search_input):
+def search_media(search_input, media):
     for m in media:
         if search_input == m.title:
             return m
     return None
             
-
 def shuffle(data):
     random.shuffle(media)
     player.play(media)
@@ -29,7 +28,7 @@ def playlists():
 
 def search():
     search_input = input("Search: ")
-    media = search_media(search_input)
+    media = search_media(search_input, media)
     if media != None:  
         print(media)
         while True:
@@ -47,25 +46,16 @@ def search():
     else:
         print("Nothing found.")
         
-def login(users_path):
-    with open(users_path) as file:
-        user_data = json.load(file)
-        users = user_data["users"]
-        
-    while True:
-        valid_user = False
-        username = input("Username: ")
-        password = input("Password: ")
-        for user in users:
-            if user["username"] == username and user["password"] == password:
-                valid_user = True
-                break
-        if valid_user:
+def login(users, username, password):
+    for u in users:
+        if u["username"] == username and u["password"] == password:
             # TODO 
             # 1. Crear objeto usuario
+            global user            
+            print('Welcome to Rocket Sounds!')
             return True
-        else:
-            print('Invalid username or password.')
+    print('Invalid username or password.')
+    return False
     
 def menu():
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
@@ -77,7 +67,12 @@ def menu():
     
     # Login de usuario
     users_path = os.path.join(data_dir, 'users.json')
-    if not login(users_path):
+    with open(users_path) as file:
+        user_data = json.load(file)
+        users = user_data["users"]
+    username = input("Username: ")
+    password = input("Password: ")
+    if not login(users, username, password):
         return
     
     # Cargar datos en un objeto

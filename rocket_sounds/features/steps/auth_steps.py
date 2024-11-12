@@ -1,27 +1,23 @@
 from behave import given, when, then
+from main import login
 
 @given('el usuario está en la página de inicio de sesión')
 def step_usuario_en_pagina_inicio_sesion(context):
-    context.page = 'login_page'
+    context.users_data = [
+        {"username": "usuario", "password": "contrasena"},
+        {"username": "user2", "password": "pass2"}
+    ]
 
 @when('el usuario ingresa su nombre de usuario "{username}" y contraseña "{password}"')
 def step_usuario_ingresa_credenciales(context, username, password):
-    if username == "usuario_valido" and password == "contraseña_correcta":
-        context.authenticated = True
-    else:
-        context.authenticated = False
-
-@then('el usuario debe ser autenticado y redirigido al menú principal')
+    context.login_result = login(context.users_data, username, password)
+    
+@then('el usuario debe ser autenticado')
 def step_usuario_autenticado(context):
-    assert context.authenticated is True
+    assert context.login_result is True, "Expected login to be successful but it failed."
 
-@then('el sistema debe mostrar un mensaje de error "{mensaje_error}"')
-def step_mostrar_mensaje_error(context, mensaje_error):
-    assert context.authenticated is False
-    context.error_message = "Credenciales inválidas"
-    assert context.error_message == mensaje_error
+@then('el sistema debe mostrar un mensaje de error "{message}"')
+def step_then_login_fail(context, message):
+    assert context.login_result is False, "Expected login to be unsuccessfull but it succedeed."
 
-@then('debe pedir al usuario que vuelva a intentarlo')
-def step_pedir_reintento(context):
-    context.prompt_relogin = True
-    assert context.prompt_relogin is True
+

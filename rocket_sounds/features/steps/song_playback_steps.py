@@ -1,36 +1,56 @@
 from behave import given, when, then
+from unittest.mock import patch
+from io import StringIO
+from song import Song
+from album import Album
+from data import Data
+from player import Player
+from main import search_media
 
-@given('el usuario ha iniciado sesión')
-def step_usuario_ha_iniciado_sesion(context):
-    context.logged_in = True
+def create_mock_data():
+    album1 = Album(
+        title="Album",
+        artist="The Rockers",
+        release_year=2021,
+        label="RockLabel"
+    )
 
-@given('hay álbumes y canciones cargadas')
-def step_albumes_y_canciones_cargadas(context):
-    context.available_songs = {'Título de la Canción': {'artista': 'Artista', 'album': 'Álbum'}}
+    song1 = Song(
+        title="Titulo de la Cancion",
+        artist="Artista",
+        album=album1,
+        duration=300,
+        track_number=1,
+        writers=["Rocky Stone", "Jim Beat"],
+        producers=["Rocky Stone"],
+        lyrics="We will, we will rock you...",
+        file="rock_anthem.mp3"
+    )
+    album1.add_track(song1)
+    
+    mock_data = Data()
+    mock_data.albums = [album1]
+    mock_data.songs = [song1]
+    return mock_data
+
+@given('hay albumes y canciones cargadas')
+def step_series_y_episodios_disponibles(context):
+    context.mock_media = create_mock_data().songs
 
 @when('el usuario selecciona la canción "{song_title}"')
-def step_usuario_selecciona_cancion(context, song_title):
-    assert context.logged_in is True
-    context.selected_song = context.available_songs.get(song_title)
+def step_usuario_selecciona_episodio(context, song_title):
+    context.selected_song = search_media(song_title, context.mock_media)
 
 @then('el sistema debe reproducir la canción')
-def step_sistema_reproduce_cancion(context):
+def step_sistema_reproduce_episodio(context):
     assert context.selected_song is not None
+    with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+        player = Player('mock_dir')
+        player.play([context.selected_song])
+        context.printed_output = mock_stdout.getvalue()
 
-@then('debe mostrar la información de la canción "{song_title}", "Artista", "Álbum"')
-def step_mostrar_informacion_cancion(context, song_title):
-    song_info = context.available_songs.get(song_title)
-    assert song_info is not None
-    assert song_info['artista'] == "Artista"
-    assert song_info['album'] == "Álbum"
-    
-@then('el sistema debe reproducir la canción And debe mostrar la información de la canción "Título de la Canción", "Artista", "Álbum"')
-def step_impl(context):
-    song_info = context.selected_song  # Simulating that the song was selected
-    assert song_info['title'] == "Título de la Canción"
-    assert song_info['artist'] == "Artista"
-    assert song_info['album'] == "Álbum"
-    
-    # Simulate the song playback (this can be a mock or actual function)
-    context.song_playing = True
-    assert context.song_playing  # Verify that the song is being played
+@then('debe mostrar la información de la canción "{song_title}", "{artista}", "{album}"')
+def step_sistema_reproduce_episodio(context, song_title, artista, album):
+    assert song_title in context.printed_output, f"Expected substring '{song_title}' not found in {context.printed_output}."
+    assert artista in context.printed_output, f"Expected substring '{artista}' not found in {context.printed_output}."
+    assert album in context.printed_output, f"Expected substring '{album}' not found in {context.printed_output}."

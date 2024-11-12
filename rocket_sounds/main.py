@@ -10,7 +10,7 @@ def search_media(search_input, media):
             return m
     return None
             
-def shuffle(data):
+def shuffle(media, player):
     random.shuffle(media)
     player.play(media)
 
@@ -94,7 +94,7 @@ def menu():
         
         choice = input("Choose an option: ")
         if choice == '1':
-            shuffle(data)
+            shuffle(media, player)
         elif choice == '2':
             playlists()
         elif choice == '3':
